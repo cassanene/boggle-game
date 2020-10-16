@@ -11,6 +11,9 @@ Boggle Game by Cassey Anene
 - Generate Random Board
 - Clickable letter tiles
 - Adding Start Over button so that the user can start over when they want 
+- Added info Snackbars for when the user submits an empty word or a word is less than 3 letters
+
+The game must be played on full screen due to some issues.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

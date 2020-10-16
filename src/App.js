@@ -52,27 +52,37 @@ function App() {
         setMessage(tempWord + " is a word");
         setSeverity("success");
         setOpen(true);
-        setVisited(false);
+        // setVisited(false);
         const index = notFoundArray.indexOf(tempWord); //get the index of the 
         if (index > -1){
-          console.log("in the splicer");
+          // console.log("in the splicer");
           notFoundArray.splice(index,1)
           setNotFound(notFoundArray);
         }
       } 
+    }
+    else if (tempWord === ""){
+      setMessage("You cannot submit an empty word");
+      setSeverity("info");
+      setOpen(true);
+    }
+    else if (tempWord.length < 3){
+      setMessage("Word has to be more than 3 letters");
+      setSeverity("info");
+      setOpen(true);
     }
     else{
       setMessage(tempWord + " is  not a word");
       setSeverity("error");
       setOpen(true);
       setVisited(false);
-      console.log("visited in else submit:", visited);
+      // console.log("visited in else submit:", visited);
     }
   }
 
   let dictionaryWords = data.words;
   let solutions = findAllSolutions(grid, dictionaryWords);
-  console.log(solutions);
+  // console.log(solutions);
   const [notFoundArray, setNotFound] = useState(solutions);
   if (started === "start"){
     return (

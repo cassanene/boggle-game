@@ -133,13 +133,11 @@ exports.findAllSolutions = function (grid, dictionary) {
 
 	//if the grid or dictionary is empty return empty string
 	if (grid.length === 0 || dictionary.length === 0) {
-		console.log("error");
 		return solutions;
 	}
 
 	for (i = 0; i < grid.length; i++) {
 		if (grid.length !== grid[i].length) {
-			console.log("error");
 			return solutions;
 		}
 	}

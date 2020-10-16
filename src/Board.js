@@ -22,7 +22,7 @@ function GetLetter(){
 }
 
 function Board(props){
-  console.log("visited in board:", props.visited);
+  // console.log("visited in board:", props.visited);
       return (
         <div>
           <Box component="span" m={1} >
