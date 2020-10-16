@@ -9,7 +9,8 @@ Boggle Game by Cassey Anene
 ## Stretch Features:
 - Made it pretty by using the Material UI React Framework
 - Generate Random Board
-- Clickable letter tiles 
+- Clickable letter tiles
+- Adding Start Over button so that the user can start over when they want 
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
