@@ -17,6 +17,9 @@ const useStyles = makeStyles({
   },
 });
 
+const dictionaryWords = data.words;
+const solutions = findAllSolutions(grid, dictionaryWords);
+
 function App() {
   const [started, setStarted] = useState("");
   const [word, setWord] = useState("");
@@ -25,6 +28,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [foundArray, setFound] = useState([]);
   const [visited, setVisited] = useState(false);
+  const [letter, setLetter] = useState("");
   const classes = useStyles();
   const handleClick = () => {
     setStarted("start");
@@ -38,6 +42,22 @@ function App() {
     }
     setOpen(false);
   };
+  const handleDelete = () => {
+    if (letter === ""){
+      setMessage("You can't delete anything!");
+      setSeverity("error");
+      setOpen(true);
+    } else if (word.length === 1){
+      setWord("");
+      setLetter("");
+    } else{
+      //slice the last letter in the word
+      let tempWord = word.slice(0,-1);
+      setWord(tempWord);
+      setLetter(word[word.length-1]);
+    }
+    // setLetter(word[word.length]);
+  }
   const handleSubmit = () => {
     let tempWord = word;
     setWord("");  // reset the word to empty string
@@ -56,7 +76,7 @@ function App() {
         const index = notFoundArray.indexOf(tempWord); //get the index of the 
         if (index > -1){
           // console.log("in the splicer");
-          notFoundArray.splice(index,1)
+          notFoundArray.splice(index,1);
           setNotFound(notFoundArray);
         }
       } 
@@ -78,10 +98,10 @@ function App() {
       setVisited(false);
       // console.log("visited in else submit:", visited);
     }
+    setLetter("");
   }
 
-  let dictionaryWords = data.words;
-  let solutions = findAllSolutions(grid, dictionaryWords);
+
   // console.log(solutions);
   const [notFoundArray, setNotFound] = useState(solutions);
   if (started === "start"){
@@ -93,14 +113,23 @@ function App() {
           {message}
         </Alert>
       </Snackbar>
-      <Container maxWidth="lg">
-      <Board variable={[word,setWord]} visited={visited}/>    
-      <Button onClick={() => handleStop()}> 
-        End Game
-      </Button>
-      <Button onClick={() => handleSubmit()}> 
+        <Container maxWidth="lg" >
+      <Board variable={[word,setWord]} visited={visited} letter={[letter,setLetter]} /> 
+      <div>
+      <Button variant="outlined" color="secondary" onClick={() => handleSubmit()}> 
         Submit {word}
       </Button>
+      </div>  
+      <div>
+      <Button variant="outlined" onClick={() => handleDelete()}> 
+        Delete {letter}
+      </Button> 
+      </div>
+      <div>
+      <Button variant="outlined" onClick={() => handleStop()}> 
+        End Game
+      </Button> 
+        </div> 
       </Container>
       <TableContainer>
         <Table className={classes.table}>
