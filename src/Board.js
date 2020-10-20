@@ -27,7 +27,7 @@ const grid = RandomGrid(GRID_SIZE);
 // }
 
 function Board(props){
-  console.log("letters in board:", props.letter);
+  // console.log("letters in board:", props.letter);
       return (
         <div>
           <Box component="span" m={1} >

@@ -2,7 +2,7 @@ import React from 'react';
 import {Button} from '@material-ui/core';
 
 function Square ({value, wordFunctions, letterFunctions}) {
-    console.log("letter functions in square:", letterFunctions);
+    // console.log("letter functions in square:", letterFunctions);
     // const [visited, setVisited] = useState(false);
     const color = "primary";
     const handleClick = (letter, wordFunctions, letterFunctions) => {

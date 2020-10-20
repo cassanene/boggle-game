@@ -54,7 +54,8 @@ function App() {
       //slice the last letter in the word
       let tempWord = word.slice(0,-1);
       setWord(tempWord);
-      setLetter(word[word.length-1]);
+      let lastLetter = tempWord[tempWord.length-1];
+      setLetter(lastLetter);
     }
     // setLetter(word[word.length]);
   }
