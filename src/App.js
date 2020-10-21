@@ -73,13 +73,9 @@ function App() {
         setMessage(tempWord + " is a word");
         setSeverity("success");
         setOpen(true);
-        // setVisited(false);
-        const index = notFoundArray.indexOf(tempWord); //get the index of the 
-        if (index > -1){
-          // console.log("in the splicer");
-          notFoundArray.splice(index,1);
-          setNotFound(notFoundArray);
-        }
+        const index = notFoundArray.indexOf(tempWord); //get the index of the word
+        notFoundArray.splice(index,1);
+        setNotFound(notFoundArray);
       } 
     }
     else if (tempWord === ""){
@@ -97,14 +93,13 @@ function App() {
       setSeverity("error");
       setOpen(true);
       setVisited(false);
-      // console.log("visited in else submit:", visited);
     }
     setLetter("");
   }
 
 
-  // console.log(solutions);
-  const [notFoundArray, setNotFound] = useState(solutions);
+
+  const [notFoundArray, setNotFound] = useState([...solutions]); //setting the copy of solutions to the notFoundArray
   if (started === "start"){
     return (
       <div> 

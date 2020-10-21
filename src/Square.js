@@ -11,6 +11,7 @@ function Square ({value, wordFunctions, letterFunctions}) {
             tempWord += letter;
             letterFunctions[1](letter);
             wordFunctions[1](tempWord);
+            
             // vistedFunctions[1](true);
             // setColor("secondary");
         // }  
