@@ -2,13 +2,17 @@ import React,{useState} from 'react';
 import './App.css';
 import Board from './Board';
 import {Container,Button,TableContainer, Table, TableHead, TableCell, TableRow, TableBody} from '@material-ui/core';
-import {findAllSolutions} from './boggle_solver'
-import {grid} from './Board'
-import data from './full-wordlist.json'
+import {findAllSolutions} from './boggle_solver';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Box from '@material-ui/core/Box';
+import {dictionaryWords, GRID_SIZE} from './constants';
 import Snackbar from '@material-ui/core/Snackbar';
 import {Alert} from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import BoggleBar from './BoggleBar';
+import RandomGrid from './randomGen.js';
+import FirebaseData from './test.firestore.js'
 
 
 const useStyles = makeStyles({
@@ -17,8 +21,8 @@ const useStyles = makeStyles({
   },
 });
 
-const dictionaryWords = data.words;
-const solutions = findAllSolutions(grid, dictionaryWords);
+
+// const solutions = findAllSolutions(grid, dictionaryWords);
 
 function App() {
   const [started, setStarted] = useState("");
@@ -29,8 +33,22 @@ function App() {
   const [foundArray, setFound] = useState([]);
   const [visited, setVisited] = useState(false);
   const [letter, setLetter] = useState("");
+  const [solutions, setSolutions] = useState([]);
+  const [gridvar, setGrid] = useState([]);
+  const [notFoundArray, setNotFound] = useState([]);
   const classes = useStyles();
+
+  
   const handleClick = () => {
+    //for some reason i cannot access the grid and the solutions in here
+    var tempGrid = RandomGrid(GRID_SIZE);
+    console.log("this is temp Grid", tempGrid);
+    setGrid(tempGrid);
+    console.log("this is grid", gridvar);
+    var tempSolutions = findAllSolutions(tempGrid, dictionaryWords);
+    setSolutions(tempSolutions);
+    setNotFound([...tempSolutions]);
+    console.log("these are the solutions", solutions);
     setStarted("start");
   };
   const handleStop = () => {
@@ -57,7 +75,6 @@ function App() {
       let lastLetter = tempWord[tempWord.length-1];
       setLetter(lastLetter);
     }
-    // setLetter(word[word.length]);
   }
   const handleSubmit = () => {
     let tempWord = word;
@@ -97,10 +114,18 @@ function App() {
     setLetter("");
   }
 
+  const handleChallenge = async (challenge) => {
+    var tempGrid = await FirebaseData(challenge);
+    setGrid(tempGrid);
+    var tempSolutions = findAllSolutions(tempGrid, dictionaryWords);
+    setSolutions(tempSolutions);
+    setNotFound([...tempSolutions]);
+    setStarted("start")
+  }
 
-
-  const [notFoundArray, setNotFound] = useState([...solutions]); //setting the copy of solutions to the notFoundArray
   if (started === "start"){
+    console.log("this is the grid", gridvar);
+    console.log("these are the solutions", solutions);
     return (
       <div> 
       <BoggleBar />
@@ -110,7 +135,7 @@ function App() {
         </Alert>
       </Snackbar>
         <Container maxWidth="lg" >
-      <Board variable={[word,setWord]} visited={visited} letter={[letter,setLetter]} /> 
+      <Board variable={[word,setWord]} visited={visited} grid={gridvar} letter={[letter,setLetter]} /> 
       <div>
       <Button variant="outlined" color="secondary" onClick={() => handleSubmit()}> 
         Submit {word}
@@ -180,9 +205,16 @@ function App() {
     return (
       <div> 
       <BoggleBar />
+      <Box textAlign='center' >
+      <Select placeholder="Load Challenge" >
+          <MenuItem onClick={() => handleChallenge("grid1")} >Challenge 1</MenuItem>
+          {/* <MenuItem onClick={() => handleChallenge()} >Option2</MenuItem> */}
+          {/* <MenuItem onClick={() => handleChallenge()} > value={30}>Option3</MenuItem> */}
+          </Select>
         <Button onClick={() => handleClick()}> 
         Start
       </Button>
+      </Box> 
       </div>
     );
   }

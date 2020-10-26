@@ -5,6 +5,10 @@ Boggle Game by Cassey Anene
 - Notify users when they submit a word they already found
 - Hide the board until Start is clicked
 - Display remaining words when Stop is clicked
+- Manually populate Firestore with a set of (fixed) challenge grids
+- Clicking "Load Challenge" displays a list of available challenges
+- Sign-in via Google
+- Selecting a challenge loads that grid
 
 ## Stretch Features:
 - Made it pretty by using the Material UI React Framework

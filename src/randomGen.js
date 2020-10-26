@@ -54,6 +54,7 @@ function RandomGen(size){
       if (grid[row][col] === "Q") grid[row][col] = "Qu";
     }
   }
+  console.log("random grid", grid);
   return grid;
 }
 
@@ -67,5 +68,5 @@ function chunk(array, size) {
   return chunked_arr;
 }
 
-export default RandomGen
+export default RandomGen;
 
