@@ -42,30 +42,30 @@ export default FirebaseData;
 
 function MakeData(){
     // Add a new document in collection "grid"
-    db.collection("grids").doc("grid1").set({
+    db.collection("grids").doc("grid3").set({
         0: {
             0: "t",
-            1: "w",
-            2: "y",
-            3: "r"
+            1: "b",
+            2: "t",
+            3: "b"
         },
         1: {
-            0: "e",
-            1: "n",
-            2: "p",
-            3: "h"
+            0: "d",
+            1: "u",
+            2: "n",
+            3: "r"
         },
         2: {
-            0: "g",
-            1: "z",
-            2: "qu",
-            3: "r"
+            0: "a",
+            1: "g",
+            2: "e",
+            3: "i"
         },
         3: {
             0: "o",
-            1: "n",
-            2: "t",
-            3: "a"
+            1: "r",
+            2: "e",
+            3: "o"
         }
     })
     .then(function() {

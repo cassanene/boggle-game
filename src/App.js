@@ -3,6 +3,7 @@ import './App.css';
 import Board from './Board';
 import {Container,Button,TableContainer, Table, TableHead, TableCell, TableRow, TableBody} from '@material-ui/core';
 import {findAllSolutions} from './boggle_solver';
+import InputLabel from "@material-ui/core/InputLabel";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Box from '@material-ui/core/Box';
@@ -12,17 +13,21 @@ import {Alert} from '@material-ui/lab';
 import {makeStyles} from '@material-ui/core/styles';
 import BoggleBar from './BoggleBar';
 import RandomGrid from './randomGen.js';
-import FirebaseData from './test.firestore.js'
+import FirebaseData from './test.firestore.js';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-});
+  formControl: {
+    margin: theme.spacing(1),
+    width: 200,
+  },
+}));
 
-
-// const solutions = findAllSolutions(grid, dictionaryWords);
 
 function App() {
   const [started, setStarted] = useState("");
@@ -38,7 +43,7 @@ function App() {
   const [notFoundArray, setNotFound] = useState([]);
   const classes = useStyles();
 
-  
+
   const handleClick = () => {
     //for some reason i cannot access the grid and the solutions in here
     var tempGrid = RandomGrid(GRID_SIZE);
@@ -206,13 +211,21 @@ function App() {
       <div> 
       <BoggleBar />
       <Box textAlign='center' >
-      <Select placeholder="Load Challenge" >
-          <MenuItem onClick={() => handleChallenge("grid1")} >Challenge 1</MenuItem>
-          {/* <MenuItem onClick={() => handleChallenge()} >Option2</MenuItem> */}
-          {/* <MenuItem onClick={() => handleChallenge()} > value={30}>Option3</MenuItem> */}
+        <div>
+      <FormControl className={classes.formControl}>
+      <InputLabel id="challenge-label" >Load Challenge</InputLabel>
+      <Select 
+        labelId="challenge-label"
+        id="challenge-helper" 
+        >
+          <MenuItem onClick={() => handleChallenge("grid1")} >Easy Challenge</MenuItem>
+          <MenuItem onClick={() => handleChallenge("grid2")} >Hard Challenge</MenuItem>
+          <MenuItem onClick={() => handleChallenge("grid3")} >Extreme Challenge</MenuItem>
           </Select>
-        <Button onClick={() => handleClick()}> 
-        Start
+      </FormControl>
+      </div>
+        <Button variant="outlined" onClick={() => handleClick()}> 
+        Play Random Grid
       </Button>
       </Box> 
       </div>
