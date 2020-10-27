@@ -41,9 +41,13 @@ function App() {
   const [solutions, setSolutions] = useState([]);
   const [gridvar, setGrid] = useState([]);
   const [notFoundArray, setNotFound] = useState([]);
+  const [challenge, setChallenge] = useState("");
+
   const classes = useStyles();
 
-
+  const handleChange = (event) => {
+    setChallenge(event.target.value);
+  };
   const handleClick = () => {
     //for some reason i cannot access the grid and the solutions in here
     var tempGrid = RandomGrid(GRID_SIZE);
@@ -120,6 +124,12 @@ function App() {
   }
 
   const handleChallenge = async (challenge) => {
+    if (challenge === ""){
+      setMessage("Pick a Challenge");
+      setSeverity("error");
+      setOpen(true);
+      return
+    }
     var tempGrid = await FirebaseData(challenge);
     setGrid(tempGrid);
     var tempSolutions = findAllSolutions(tempGrid, dictionaryWords);
@@ -212,19 +222,28 @@ function App() {
       <BoggleBar />
       <Box textAlign='center' >
         <div>
+          <form>
       <FormControl className={classes.formControl}>
       <InputLabel id="challenge-label" >Load Challenge</InputLabel>
       <Select 
         labelId="challenge-label"
         id="challenge-helper" 
+        value={challenge}
+        onChange={handleChange}
         >
-          <MenuItem onClick={() => handleChallenge("grid1")} >Easy Challenge</MenuItem>
-          <MenuItem onClick={() => handleChallenge("grid2")} >Hard Challenge</MenuItem>
-          <MenuItem onClick={() => handleChallenge("grid3")} >Extreme Challenge</MenuItem>
+          <MenuItem value={"grid1"} >Easy Challenge</MenuItem>
+          <MenuItem value={"grid2"}  >Hard Challenge</MenuItem>
+          <MenuItem value={"grid3"}  >Extreme Challenge</MenuItem>
           </Select>
       </FormControl>
+      <div>
+      <Button color="primary" onClick={() => handleChallenge(challenge)}> 
+        Start
+      </Button>
       </div>
-        <Button variant="outlined" onClick={() => handleClick()}> 
+      </form>
+      </div>
+        <Button variant="outlined" color="primary" onClick={() => handleClick()}> 
         Play Random Grid
       </Button>
       </Box> 
