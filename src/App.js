@@ -15,7 +15,6 @@ import BoggleBar from './BoggleBar';
 import RandomGrid from './randomGen.js';
 import FirebaseData from './test.firestore.js';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,13 +50,10 @@ function App() {
   const handleClick = () => {
     //for some reason i cannot access the grid and the solutions in here
     var tempGrid = RandomGrid(GRID_SIZE);
-    console.log("this is temp Grid", tempGrid);
     setGrid(tempGrid);
-    console.log("this is grid", gridvar);
     var tempSolutions = findAllSolutions(tempGrid, dictionaryWords);
     setSolutions(tempSolutions);
     setNotFound([...tempSolutions]);
-    console.log("these are the solutions", solutions);
     setStarted("start");
   };
   const handleStop = () => {
@@ -139,8 +135,6 @@ function App() {
   }
 
   if (started === "start"){
-    console.log("this is the grid", gridvar);
-    console.log("these are the solutions", solutions);
     return (
       <div> 
       <BoggleBar />

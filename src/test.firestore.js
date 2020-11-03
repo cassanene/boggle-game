@@ -22,7 +22,6 @@ async function FirebaseData(challenge){
                 const b = Object.values(a[x]); // get the letters in array form
                 newGrid.push(b); //put them into the new grid
             }
-            console.log("newGrid", newGrid);
             return newGrid;
         } else {
             // doc.data() will be undefined in this case

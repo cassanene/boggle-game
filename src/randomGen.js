@@ -54,7 +54,6 @@ function RandomGen(size){
       if (grid[row][col] === "Q") grid[row][col] = "Qu";
     }
   }
-  console.log("random grid", grid);
   return grid;
 }
 
